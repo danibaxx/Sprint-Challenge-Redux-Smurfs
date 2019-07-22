@@ -9,10 +9,10 @@ import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
-import { rootReducer } from './reducers';
+import { smurfsReducer } from './reducers';
 
 const store = createStore(
-  smurfsReducer
+  smurfsReducer,
   applyMiddleware(thunk, logger)
 );
 
