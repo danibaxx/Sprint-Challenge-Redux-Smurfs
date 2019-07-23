@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import SmurfsList from './SmurfsList';
+
 import { getSmurfs } from '../actions';
+
 import './App.css';
 
 /*
@@ -26,14 +28,21 @@ class App extends Component {
     this.props.getSmurfs();
     };
 
+    handleChange = event => {
+      event.preventDefault()
+
+      this.setState({ [event.target.name]: event.target.value });
+    }
+
     render() {
     if (this.props.fetchingSmurfs) {
-     <h2>Loading... Please wait...</h2>;
+      return <h2>Loading... Please wait...</h2>;
     }
 
     return (
       <div className="App">
-        <SmurfsList />
+        <SmurfsList handleChange={this.handleChange }/>
+        <button type='submit'>Add Smurf</button>
       </div>
     );
   }
@@ -42,14 +51,13 @@ class App extends Component {
 const mapStateToProps = state => {
   console.log(state);
   return {
-    smurfs: state.smurfsReducer.smurfs,
-    getSmurfs: state.smurfsReducer.getSmurfs,
-    addSmurfs: state.smurfsReducer.addSmurfs
+    smurfs: state.smurfs,
+    getSmurfs: state.getSmurfs,
+    addSmurfs: state.addSmurfs
   }
 }
 
 export default connect(
-  mapStateToProps,
-  { getSmurfs }
+  mapStateToProps
 )(App);
 

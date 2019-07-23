@@ -1,18 +1,37 @@
-import { Component } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
 
-const SmurfsList = () => {
+
+
+class SmurfsList extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      addSmurf: ''
+    };
+  }
+
+  addSmurf = event => {
+    event.preventDefault();
+
+    this.setState({
+      name: '',
+      height: '',
+      age: ''
+    })
+  }
+
+  render() {
     return (
       <div>
-        <form>
-          <input type="text" name="name" placeholder="Name" value={this.state.name} />
-          <input type="text" name="age" placeholder="Age" value={this.state.age} />
-          <input type="text" name="height" placeholder="Height" value={this.state.height} />
-          <button onClick={() => addSmurfs(smurf)}>Add Smurf</button>
-
+        <form onSubmit={this.addSmurf}>
+          <input type="text" name="name" placeholder="Name" value={this.state.name} required />
+          <input type="text" name="age" placeholder="Age" value={this.state.age} required />
+          <input type="text" name="height" placeholder="Height" value={this.state.height} required />
         </form>
       </div>
-    )
+    );
+  };
+  
 }
 
 export default SmurfsList;
