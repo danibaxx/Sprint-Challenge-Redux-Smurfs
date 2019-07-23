@@ -1,7 +1,14 @@
+import axios from 'axios';
 /* 
   Action Types Go Here!
   Be sure to export each action type so you can pull it into your reducer
 */
+export const FETCHING_SMURFS = 'FETCHING_SMURFS';
+export const FETCHING_SMURFS_SUCCESS = 'FETCHING_SMURFS_SUCCESS';
+export const FETCHING_SMURFS_FAILURE = 'FETCHING_SMURFS_FAILURE';
+export const CREATE_SMURFS = 'CREATE_SMURFS';
+export const CREATE_SMURFS_SUCCESS = 'CREATE_SMURFS_SUCCESS';
+export const CREATE_SMURFS_FAILURE = 'CREATE_SMURFS_FAILURE';
 
 /*
   For this project you'll need at least 2 action creators for the main portion,
@@ -13,3 +20,43 @@
    U - updateSmurf
    D - deleteSmurf
 */
+
+export const getSmurfs = () => dispatch => {
+  dispatch({ type: FETCHING_SMURFS });
+  axios
+    .get('http://localhost:3333/smurfs')
+    
+    .then(({ data }) => {
+      dispatch({
+        type: FETCHING_SMURFS_SUCCESS,
+        payload: data.results
+      });
+    })
+
+    .catch(error => {
+      dispatch({
+        type: FETCHING_SMURFS_FAILURE,
+        payload: error
+      });
+    });
+};
+
+export const addSmurfs = smurf => dispatch => {
+  dispatch({ type: CREATE_SMURFS });
+  axios
+    .post('http://localhost:3333/smurfs', smurf)
+
+    .then(({ data })=> {
+      dispatch({
+        type: CREATE_SMURFS_SUCCESS,
+        payload: data.results
+      });
+    })
+
+    .catch(error => {
+      dispatch({
+        type: CREATE_SMURFS_FAILURE,
+        payload: error
+      });
+    });
+};
