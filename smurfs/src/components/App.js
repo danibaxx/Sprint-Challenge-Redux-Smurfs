@@ -25,7 +25,7 @@ class App extends Component {
   };
   
     componentDidMount() {
-    this.props.getSmurfs();
+    // this.props.getSmurfs();
     };
 
     handleChange = event => {
